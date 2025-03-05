@@ -8,10 +8,20 @@
         if (!document.querySelector(".product-detail")) {
             return;
         }
+
+        // first we check if data is stored locally or not
+        products = JSON.parse(localStorage.getItem(localstoragekey));
+        // it stored locally, so no need to fetch the data
+        if (products) {
+            buildHTML();
+            buildCSS();
+            setEvents();
+        }
+        else
+        {
+            fetchProducts();
+        }
         
-        buildHTML();
-        buildCSS();
-        setEvents();
     };
 
     function fetchProducts(){
