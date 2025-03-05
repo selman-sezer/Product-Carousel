@@ -1,8 +1,16 @@
 (() => {
+    
+
     const init = () => {
-        self.buildHTML();
-        self.buildCSS();
-        self.setEvents();
+
+        // if page is not a product page the function return without doing anything. So it works only with product pages.
+        if (!document.querySelector(".product-detail")) {
+            return;
+        }
+
+        buildHTML();
+        buildCSS();
+        setEvents();
     };
 
     const buildHTML = () => {
@@ -35,3 +43,5 @@
 
     init();
 })();
+
+
