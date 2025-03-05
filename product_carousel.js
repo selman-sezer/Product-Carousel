@@ -25,7 +25,9 @@
     };
 
     function fetchProducts(){
-        fetch("https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json")
+        const url = "https://gist.githubusercontent.com/sevindi/5765c5812bbc8238a38b3cf52f233651/raw/56261d81af8561bf0a7cf692fe572f9e1e91f372/products.json";
+
+        fetch(url)
         .then(response =>{
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
@@ -33,8 +35,8 @@
             return response.json();
         })
         .then(res => {
-            products = res;
             localStorage.setItem(localstoragekey, JSON.stringify(res));
+            products = res;
             buildHTML();
             buildCSS();
             setEvents();
@@ -57,7 +59,7 @@
         const itemsWrapper = document.createElement('div');
         itemsWrapper.className = 'carousel-items';
 
-        self.products.forEach(product => {
+        products.forEach(product => {
             const item = document.createElement('div');
             item.className = 'carousel-item';
 
@@ -100,24 +102,80 @@
     };
 
     const buildCSS = () => {
-        const css = `
-            .container {
-                background-color: red;
-                height: 100px;
-                width: 100px;
+        const style = document.createElement('style');
+        style.textContent = `
+            .product-carousel {
+                margin: 24px 0;
+                padding: 0 20px;
+            }
+
+            .carousel-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+                color : #29323b;
+                font-weight : lighter;
+            }
+
+            .carousel-container {
+                position: relative;
+            }
+
+            .carousel-items {
+                display: flex;
+                gap: 20px;
+                overflow-x: hidden;
+                scroll-behavior: smooth;
+                padding: 10px 0;
+            }
+            .carousel-item {
+                flex: 0 0 calc(50% - 10px);
+                position: relative;
+                min-width: calc(33% - 10px);
+            }
+
+            .carousel-item img {
+                width: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+
+            .heart-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: white;
+                border: solid .5px #b6b7b9;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            
+            .carousel-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: white;
+                border: 1px solid #ddd;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                z-index: 2;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .carousel-left { left: -20px; }
+            .carousel-right { right: -20px; }
+
+            @media ((min-width: 992px)) {
+                .carousel-item { flex: 0 0 calc(33.33% - 15px); }
             }
         `;
-
-        $('<style>').addClass('carousel-style').html(css).appendTo('head');
+        document.head.appendChild(style);
     };
 
     const setEvents = () => {
-        $('').on('click', () => {
-            console.log('clicked');
-        });
+
     };
 
     init();
 })();
-
-
