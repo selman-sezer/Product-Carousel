@@ -1,5 +1,6 @@
 (() => {
-    
+    const localstoragekey = 'localstoragekey';
+    let products = null;
 
     const init = () => {
 
