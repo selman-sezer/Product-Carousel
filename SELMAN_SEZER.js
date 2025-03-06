@@ -205,10 +205,34 @@
         document.head.appendChild(style);
     };
 
-    const setEvents = () => {
 
-    };
     
+    const setEvents = () => {
+        document.querySelectorAll('.heart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.id;
+                const isLiked = this.textContent === '♥';
+                this.textContent = isLiked ? '♡' : '♥';
+                this.style.color = isLiked ? '#666' : '#007bff';
+                localStorage.setItem(`liked_${productId}`, isLiked ? '' : 'true');
+            });
+        });
+
+        let scrollPos = 0;
+        const itemsWrapper = document.querySelector('.carousel-items');
+        const itemWidth = document.querySelector('.carousel-item').offsetWidth + 20;
+
+        document.querySelector('.carousel-left').addEventListener('click', () => {
+            scrollPos = Math.max(scrollPos - itemWidth, 0);
+            itemsWrapper.scrollTo({ left: scrollPos, behavior: 'smooth' });
+        });
+
+        document.querySelector('.carousel-right').addEventListener('click', () => {
+            const maxScroll = itemsWrapper.scrollWidth - itemsWrapper.clientWidth;
+            scrollPos = Math.min(scrollPos + itemWidth, maxScroll);
+            itemsWrapper.scrollTo({ left: scrollPos, behavior: 'smooth' });
+        });
+    };
 
     init();
 })();
