@@ -75,9 +75,11 @@
             img.alt = product.name;
 
             const name = document.createElement('h3');
+            name.className = 'productName';
             name.textContent = product.name;
 
             const price = document.createElement('p');
+            price.className = 'price';
             price.textContent = `${product.price} TL`;
 
             const heart = document.createElement('button');
@@ -119,6 +121,18 @@
             .inner-product-carousel
             {
                 width : 80%;
+            }
+
+            .productName
+            {
+                font-size : 14px;
+            }
+            
+            .price
+            {
+                color : #193db0;
+                font-size : 18px;
+                font-weight : bold; 
             }
 
             .carousel-title {
