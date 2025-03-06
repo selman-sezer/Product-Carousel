@@ -48,10 +48,13 @@
         const carousel = document.createElement('div');
         carousel.className = 'product-carousel';
 
+        const innerCarousel = document.createElement('div');
+        innerCarousel.className = 'inner-product-carousel';
+
         const title = document.createElement('h2');
         title.className = 'carousel-title';
         title.textContent = 'You Might Also Like';
-        carousel.appendChild(title);
+        innerCarousel.appendChild(title);
 
         const container = document.createElement('div');
         container.className = 'carousel-container';
@@ -97,7 +100,8 @@
         rightBtn.textContent= '>';
 
         container.append(leftBtn, itemsWrapper, rightBtn);
-        carousel.appendChild(container);
+        innerCarousel.appendChild(container);
+        carousel.appendChild(innerCarousel);
         document.querySelector('.product-detail').insertAdjacentElement('afterend', carousel);
     };
 
@@ -105,13 +109,21 @@
         const style = document.createElement('style');
         style.textContent = `
             .product-carousel {
-                margin: 24px 0;
+                // margin: 24px 0;
                 padding: 0 20px;
+                background-color : #f4f5f7;
+                display : flex;
+                justify-content : center;
+            }
+            
+            .inner-product-carousel
+            {
+                width : 80%;
             }
 
             .carousel-title {
                 font-size: 24px;
-                margin-bottom: 20px;
+                // margin-bottom: 20px;
                 color : #29323b;
                 font-weight : lighter;
             }
@@ -128,7 +140,7 @@
                 padding: 10px 0;
             }
             .carousel-item {
-                flex: 0 0 calc(50% - 10px);
+                flex: 0 0 calc(33% - 10px);
                 position: relative;
                 min-width: calc(33% - 10px);
             }
@@ -169,6 +181,12 @@
             @media ((min-width: 992px)) {
                 .carousel-item { flex: 0 0 calc(33.33% - 15px); }
             }
+
+            @media (min-width: 992px) {
+                .carousel-title {
+                    font-size: 32px;
+                    line-height: 43px;
+            }
         `;
         document.head.appendChild(style);
     };
@@ -176,6 +194,7 @@
     const setEvents = () => {
 
     };
+    
 
     init();
 })();
